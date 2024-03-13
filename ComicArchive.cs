@@ -1,11 +1,12 @@
 using System.IO.Compression;
 using ComicMeta.Archivers;
 using ComicMeta.Formats;
+using ComicMeta.Metadata;
 
 namespace ComicMeta;
 
 
-public class ComicArchive
+public class ComicArchive : IDisposable
 {
     private readonly string FilePath;
     private readonly string FileExt;
@@ -19,15 +20,12 @@ public class ComicArchive
     private uint PageCount => _pageCount ??= (uint)this.PageList.Count;
 
 
-    private List<string>? _pageList = null;
-    private List<string> PageList => _pageList ??= this.Archiver.GetArchiveFilenameList();
+    private List<string>? _fileList = null;
+    private List<string> FileList => _fileList ??= this.Archiver.GetArchiveFilenameList();
 
-    private bool? _hasCIX = null;
-    private bool HasCIX => _hasCIX ??= HasCIXFile();
-    private bool? _hasCBI = null;
-    private bool HasCBI => _hasCBI ??= HasCBIFile();
-    private bool? _hasCoMet = null;
-    private bool HasCoMet => _hasCoMet ??= HasCoMetFile();
+    private List<string>? _pageList = null;
+    private List<string> PageList => _pageList ??= this.GetPageList();
+
 
     private bool? _isComicArchive = null;
     public bool IsComicArchive => _isComicArchive ??= IsFileComicArchive();
@@ -96,6 +94,22 @@ public class ComicArchive
         return false;
     }
 
+    private static string[] VALID_IMAGE_EXT = [".jpg", "jpeg", ".png", ".gif", ".webp"];
+    public List<string> GetPageList()
+    {
+        return FileList.Where(f => VALID_IMAGE_EXT.Contains(Path.GetExtension(f).ToLower()))
+            .Where(f => !f.StartsWith('.')).ToList();
+    }
+
+
+    #region HasMetadata
+    private bool? _hasCIX = null;
+    private bool HasCIX => _hasCIX ??= HasCIXFile();
+    private bool? _hasCBI = null;
+    private bool HasCBI => _hasCBI ??= HasCBIFile();
+    private bool? _hasCoMet = null;
+    private bool HasCoMet => _hasCoMet ??= HasCoMetFile();
+
     public bool HasMetadata(MetadataStyle style)
     {
         return style switch
@@ -105,15 +119,13 @@ public class ComicArchive
             MetadataStyle.COMET => HasCoMet,
             _ => false
         };
-
-
     }
 
     private bool HasCoMetFile()
     {
         if (!this.IsComicArchive)
             return false;
-        foreach (var file in this.PageList)
+        foreach (var file in this.FileList)
         {
             if (Path.GetDirectoryName(file) == "" && Path.GetExtension(file).ToLower() == ".xml")
             {
@@ -129,10 +141,7 @@ public class ComicArchive
                 }
             }
         }
-
         return false;
-
-
     }
 
     private bool HasCBIFile()
@@ -149,7 +158,7 @@ public class ComicArchive
         if (!this.IsComicArchive)
             return false;
 
-        if (this.PageList.Contains(ci_xml_filename))
+        if (this.FileList.Contains(ci_xml_filename))
         {
             return true;
         }
@@ -157,6 +166,125 @@ public class ComicArchive
         return false;
     }
 
+    #endregion
+
+    #region ReadMetadata
+
+
+    private GenericMetadata? _cix_metadata = null;
+    private GenericMetadata CIXMetadata => _cix_metadata ??= ReadCIX();
+    private GenericMetadata? _cbi_metadata = null;
+    private GenericMetadata CBIMetadata => _cbi_metadata ??= ReadCBI();
+
+    private GenericMetadata? _comet_metadata = null;
+    private GenericMetadata CoMetMetadata => _comet_metadata ??= ReadCoMet();
+
+    public GenericMetadata ReadMetadata(MetadataStyle style)
+    {
+        var meta = style switch
+        {
+            MetadataStyle.CIX => CIXMetadata,
+            MetadataStyle.CBI => CBIMetadata,
+            MetadataStyle.COMET => CoMetMetadata,
+            _ => new GenericMetadata()
+        };
+
+        if (meta.Pages.Length == 0)
+            meta.Pages = GenerateDefaultPages();
+        if (!string.IsNullOrEmpty(meta.CoverImage))
+        {
+            var coverPage = meta.Pages.FirstOrDefault(p => p.Key == meta.CoverImage);
+            if (coverPage != null)
+            {
+                meta.Pages[0].PageType = PageType.Unknown;
+                coverPage.PageType = PageType.FrontCover;
+            }
+        }
+
+        if (meta.PageCount == null || meta.PageCount == 0)
+            meta.PageCount = meta.Pages.Length;
+
+        return meta;
+    }
+
+    private GenericMetadata.PageInfo[] GenerateDefaultPages()
+    {
+        return PageList.Select((p, i) => new GenericMetadata.PageInfo
+        {
+            PageNumber = i+1,
+            Key = p,
+            PageType = i == 0 ? PageType.FrontCover : PageType.Unknown
+        }).ToArray();
+    }
+
+    private GenericMetadata ReadCIX()
+    {
+        if (!HasCIX) return new GenericMetadata();
+        var rawCIX = Archiver.ReadArchiveFileAsString(ci_xml_filename);
+        GenericMetadata? meta = null;
+        if (!string.IsNullOrEmpty(rawCIX))
+            meta = ComicInfoXml.GetMetadataFromString(rawCIX);
+        if (meta == null)
+            meta = new GenericMetadata();
+
+        // validate page nb
+        if (meta.Pages.Count() != this.PageCount)
+        {
+            // pages array doesn't match the actual number of images we're seeing
+            // in the archive, so discard the data
+            meta.Pages = [];
+        }
+        return meta;
+    }
+
+
+    private GenericMetadata ReadCBI()
+    {
+        if (!HasCBI) return new GenericMetadata();
+        var rawCBI = Archiver.GetArchiveComment();
+        GenericMetadata? meta = null;
+        if (!string.IsNullOrEmpty(rawCBI))
+            meta = ComicBookInfo.GetMetadataFromString(rawCBI);
+        if (meta == null)
+            meta = new GenericMetadata();
+
+        // validate page nb
+        if (meta.Pages.Count() != this.PageCount)
+        {
+            // pages array doesn't match the actual number of images we're seeing
+            // in the archive, so discard the data
+            meta.Pages = [];
+        }
+        return meta;
+    }
+
+    private GenericMetadata ReadCoMet()
+    {
+        if (!HasCoMet) return new GenericMetadata();
+        var rawCoMet = Archiver.ReadArchiveFileAsString(comet_filename);
+        GenericMetadata? meta = null;
+        if (!string.IsNullOrEmpty(rawCoMet))
+            meta = CoMet.GetMetadataFromString(rawCoMet);
+        if (meta == null)
+            meta = new GenericMetadata();
+
+        // validate page nb
+        if (meta.Pages.Count() != this.PageCount)
+        {
+            // pages array doesn't match the actual number of images we're seeing
+            // in the archive, so discard the data
+            meta.Pages = [];
+        }
+        return meta;
+    }
+
+
+
+    #endregion
+    public void Dispose()
+    {
+        Archiver?.Dispose();
+    }
     public enum MetadataStyle
     {
         CBI = 0, //ComicBookLover

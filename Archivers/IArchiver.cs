@@ -1,6 +1,6 @@
 namespace ComicMeta.Archivers;
 
-public interface IArchiver{
+public interface IArchiver: IDisposable{
 
     List<string> GetArchiveFilenameList();
 

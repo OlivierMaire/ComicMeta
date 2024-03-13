@@ -1,5 +1,6 @@
 
 using System.IO.Compression;
+using ComicMeta.Metadata;
 
 namespace ComicMeta.Archivers;
 
@@ -16,7 +17,7 @@ public class ZipArchiver(string filePath) : IArchiver
         archive ??= ZipFile.OpenRead(FilePath);
         return archive.Entries.Select(e => e.Name).ToList();
     }
-
+    
     public string GetArchiveComment()
     {
         archive ??= ZipFile.OpenRead(FilePath);
@@ -36,6 +37,12 @@ public class ZipArchiver(string filePath) : IArchiver
         if (stream == null)
             return string.Empty;
         using var sr = new StreamReader(stream);
-            return sr.ReadToEnd();
+        return sr.ReadToEnd();
+    }
+
+    public void Dispose()
+    {
+        if (archive != null)
+            archive.Dispose();
     }
 }
