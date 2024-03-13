@@ -40,6 +40,10 @@ public class ComicArchive : IDisposable
         if (FileExt == ".cbr" || FileExt == ".rar")
         {
             // rar extracting
+             if (RarArchiver.IsRarArchive(filePath))
+            {
+                Archiver = new RarArchiver(filePath);
+            }
 
         }
         else if (FileExt == ".cbz")
@@ -78,10 +82,13 @@ public class ComicArchive : IDisposable
         }
     }
 
+       
+       
+
     public bool IsFileComicArchive()
     {
-        if (IsZipArchive(FilePath)
-        // || rar || pdf
+        if (IsZipArchive(FilePath) || RarArchiver.IsRarArchive(FilePath)
+        //   || pdf
         )
         {
             if (PageCount > 0)
