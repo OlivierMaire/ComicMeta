@@ -1,30 +1,30 @@
-
-using System.IO.Compression;
+using ComicMeta.Metadata;
+using SharpCompress.Archives.Rar;
 
 namespace ComicMeta.Archivers;
 
-public class ZipArchiver(string filePath) : IArchiver
+public class RarArchiver(string filePath) : IArchiver
 
 {
     private readonly string FilePath = filePath;
-    private ZipArchive? archive = null;
+    private RarArchive? archive = null;
 
     public List<string> GetArchiveFilenameList()
     {
-        archive ??= ZipFile.OpenRead(FilePath);
-        return archive.Entries.Select(e => e.Name).ToList();
+        archive ??= RarArchive.Open(FilePath);
+        return archive.Entries.Select(e => e.Key).ToList();
     }
-
+    
     public string GetArchiveComment()
     {
-        archive ??= ZipFile.OpenRead(FilePath);
-        return archive.Comment;
+        archive ??= RarArchive.Open(FilePath);
+        return archive.Volumes.First().Comment ?? string.Empty;
     }
 
     public Stream? ReadArchiveFileAsStream(string file)
     {
-        archive ??= ZipFile.OpenRead(FilePath);
-        return archive.GetEntry(file)?.Open();
+        archive ??= RarArchive.Open(FilePath);
+        return archive.Entries.FirstOrDefault(e => e.Key == file)?.OpenEntryStream();
 
     }
 
@@ -45,17 +45,6 @@ public class ZipArchiver(string filePath) : IArchiver
 
     public static bool IsValidArchive(string file)
     {
-        try
-        {
-            using (var zipFile = ZipFile.OpenRead(file))
-            {
-                var entries = zipFile.Entries;
-                return true;
-            }
-        }
-        catch (InvalidDataException)
-        {
-            return false;
-        }
+        return RarArchive.IsRarFile(file);
     }
 }

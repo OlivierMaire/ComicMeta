@@ -4,6 +4,33 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <PackageId>ComicMeta</PackageId>
+    <!-- <Version>0.0.2-alpha</Version> -->
+    <Authors>Olivier Maire</Authors>
+    <Company>Olivier Maire</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>Comics;Metadata;ComicInfoXml;ComicInfo;ComicBookInfo;CoMet;.Net;</PackageTags>
+    <ProjectUrl>https://github.com/OlivierMaire/ComicMeta</ProjectUrl>
+    <RepositoryUrl>https://github.com/OlivierMaire/ComicMeta.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Macross.Json.Extensions" Version="3.0.0" />
+    <PackageReference Include="PDFtoImage" Version="4.0.0" />
+    <PackageReference Include="SharpCompress" Version="0.36.0" />
+  </ItemGroup>
+
+ <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GitVersion.MsBuild" Version="5.12.0">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  
 </Project>
