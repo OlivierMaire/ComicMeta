@@ -12,7 +12,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>Comics;Metadata;ComicInfoXml;ComicInfo;ComicBookInfo;CoMet;.Net;</PackageTags>
-    <ProjectUrl>https://github.com/OlivierMaire/ComicMeta</ProjectUrl>
+    <PackageProjectUrl>https://github.com/OlivierMaire/ComicMeta</PackageProjectUrl>
     <RepositoryUrl>https://github.com/OlivierMaire/ComicMeta.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
