@@ -14,7 +14,7 @@ public class ZipArchiver(string filePath) : IArchiver
         archive ??= ZipFile.OpenRead(FilePath);
         return archive.Entries.Select(e => e.Name).ToList();
     }
-    
+
     public string GetArchiveComment()
     {
         archive ??= ZipFile.OpenRead(FilePath);
@@ -41,5 +41,21 @@ public class ZipArchiver(string filePath) : IArchiver
     {
         if (archive != null)
             archive.Dispose();
+    }
+
+    public static bool IsValidArchive(string file)
+    {
+        try
+        {
+            using (var zipFile = ZipFile.OpenRead(file))
+            {
+                var entries = zipFile.Entries;
+                return true;
+            }
+        }
+        catch (InvalidDataException)
+        {
+            return false;
+        }
     }
 }

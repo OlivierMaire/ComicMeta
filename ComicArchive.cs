@@ -2,6 +2,7 @@ using System.IO.Compression;
 using ComicMeta.Archivers;
 using ComicMeta.Formats;
 using ComicMeta.Metadata;
+using ZstdSharp.Unsafe;
 
 namespace ComicMeta;
 
@@ -40,23 +41,34 @@ public class ComicArchive : IDisposable
         if (FileExt == ".cbr" || FileExt == ".rar")
         {
             // rar extracting
-             if (RarArchiver.IsRarArchive(filePath))
+            if (RarArchiver.IsValidArchive(filePath))
             {
                 Archiver = new RarArchiver(filePath);
+            }
+            else  // test if it's a zip file
+                if (ZipArchiver.IsValidArchive(filePath))
+            {
+                Archiver = new ZipArchiver(filePath);
             }
 
         }
         else if (FileExt == ".cbz")
         {
-            if (IsZipArchive(filePath))
+            if (ZipArchiver.IsValidArchive(filePath))
             {
                 Archiver = new ZipArchiver(filePath);
             }
-            else
+            else if (RarArchiver.IsValidArchive(filePath))
             {
-                // test rar method
+                Archiver = new RarArchiver(filePath);
             }
-            //    archive.Entries[0].
+        }
+        else if (FileExt == ".pdf")
+        {
+            if (PdfArchiver.IsValidArchive(filePath))
+            {
+                Archiver = new PdfArchiver(filePath);
+            }
         }
         else
         {
@@ -65,30 +77,14 @@ public class ComicArchive : IDisposable
         }
     }
 
-    private bool IsZipArchive(string path)
-    {
 
-        try
-        {
-            using (var zipFile = ZipFile.OpenRead(path))
-            {
-                var entries = zipFile.Entries;
-                return true;
-            }
-        }
-        catch (InvalidDataException)
-        {
-            return false;
-        }
-    }
 
-       
-       
 
     public bool IsFileComicArchive()
     {
-        if (IsZipArchive(FilePath) || RarArchiver.IsRarArchive(FilePath)
-        //   || pdf
+        if (ZipArchiver.IsValidArchive(FilePath) ||
+            RarArchiver.IsValidArchive(FilePath) ||
+            PdfArchiver.IsValidArchive(FilePath)
         )
         {
             if (PageCount > 0)
@@ -101,7 +97,7 @@ public class ComicArchive : IDisposable
         return false;
     }
 
-    private static string[] VALID_IMAGE_EXT = [".jpg", "jpeg", ".png", ".gif", ".webp"];
+    private static string[] VALID_IMAGE_EXT = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
     public List<string> GetPageList()
     {
         return FileList.Where(f => VALID_IMAGE_EXT.Contains(Path.GetExtension(f).ToLower()))
@@ -218,7 +214,7 @@ public class ComicArchive : IDisposable
     {
         return PageList.Select((p, i) => new GenericMetadata.PageInfo
         {
-            PageNumber = i+1,
+            PageNumber = i + 1,
             Key = p,
             PageType = i == 0 ? PageType.FrontCover : PageType.Unknown
         }).ToArray();

@@ -43,7 +43,7 @@ public class RarArchiver(string filePath) : IArchiver
             archive.Dispose();
     }
 
-    public static bool IsRarArchive(string file)
+    public static bool IsValidArchive(string file)
     {
         return RarArchive.IsRarFile(file);
     }

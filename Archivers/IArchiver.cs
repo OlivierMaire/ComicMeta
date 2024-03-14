@@ -7,4 +7,6 @@ public interface IArchiver: IDisposable{
     string GetArchiveComment();
     Stream? ReadArchiveFileAsStream(string file);
     string ReadArchiveFileAsString(string file);
+
+    public static abstract bool IsValidArchive(string file);
 }
