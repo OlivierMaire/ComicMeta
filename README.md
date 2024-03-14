@@ -6,5 +6,5 @@ Supports the following Metadata formats: CIX (ComicInfo.xml), CBI (ComicBookInfo
 Can only Read metadata, no write support.
 
 Heavily inspired by the Python package comicapi 
-[https://](https://github.com/kounch/ComicStreamer)
+[https://github.com/kounch/ComicStreamer](https://github.com/kounch/ComicStreamer)
 
