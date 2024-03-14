@@ -70,7 +70,8 @@ public class ComicArchive : IDisposable
                 Archiver = new PdfArchiver(filePath);
             }
         }
-        else
+        
+        if (Archiver == null)
         {
             // unsuported Extension
             throw new Exception("Unknown Archive format.");

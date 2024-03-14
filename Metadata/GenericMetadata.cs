@@ -49,7 +49,7 @@ public record GenericMetadata()
     public string? Publisher { get; set; }
     public string? Imprint { get; set; }
     public string? Genre { get; set; }
-    public string[] Tags { get; set; }
+    public string[] Tags { get; set; } = [];
     public string? WebLink { get; set; }
     public int? PageCount { get; set; }
     public string? Language { get; set; }  // 2 letters iso code
@@ -57,7 +57,7 @@ public record GenericMetadata()
     public bool? BlackAndWhite { get; set; }
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public Manga Manga { get; set; } = Manga.Unknown;
-    public string[] Characters { get; set; }
+    public string[] Characters { get; set; } = [];
     public string? Teams { get; set; }
     public string? Locations { get; set; }
     public string? ScanInfo { get; set; }

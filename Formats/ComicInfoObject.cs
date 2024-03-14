@@ -137,6 +137,7 @@ namespace ComicMeta.Formats {
             this.mainCharacterOrTeamField = "";
             this.reviewField = "";
             this.gTINField = "";
+            this.pagesField = [];
         }
         
         /// <remarks/>
@@ -886,7 +887,7 @@ namespace ComicMeta.Formats {
     /// <remarks/>
     public partial class ArrayOfComicPageInfo {
         
-        private ComicPageInfo[] pageField;
+        private ComicPageInfo[] pageField = [];
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("Page", IsNullable=true)]
