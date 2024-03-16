@@ -12,6 +12,7 @@ public class ComicArchive : IDisposable
     private readonly string FilePath;
     private readonly string FileExt;
     private readonly IArchiver Archiver;
+    private MetadataStyle? MetaStyle;
 
     private const string ci_xml_filename = "ComicInfo.xml";
     private const string comet_default_filename = "CoMet.xml";
@@ -70,12 +71,24 @@ public class ComicArchive : IDisposable
                 Archiver = new PdfArchiver(filePath);
             }
         }
-        
+
         if (Archiver == null)
         {
             // unsuported Extension
             throw new Exception("Unknown Archive format.");
         }
+
+        if (this.HasMetadata(MetadataStyle.CIX))
+            MetaStyle = MetadataStyle.CIX;
+        else if (this.HasMetadata(MetadataStyle.CBI))
+            MetaStyle = MetadataStyle.CBI;
+        else if (this.HasMetadata(MetadataStyle.COMET))
+            MetaStyle = MetadataStyle.COMET;
+
+        if (MetaStyle == null)
+            throw new Exception("Unknown Metadata format.");
+
+
     }
 
 
@@ -183,15 +196,32 @@ public class ComicArchive : IDisposable
     private GenericMetadata? _comet_metadata = null;
     private GenericMetadata CoMetMetadata => _comet_metadata ??= ReadCoMet();
 
-    public GenericMetadata ReadMetadata(MetadataStyle style)
+    public GenericMetadata ReadMetadata()
     {
-        var meta = style switch
+        var meta = MetaStyle switch
         {
             MetadataStyle.CIX => CIXMetadata,
             MetadataStyle.CBI => CBIMetadata,
             MetadataStyle.COMET => CoMetMetadata,
             _ => new GenericMetadata()
         };
+
+    // validate page nb
+        if (meta.Pages.Count() != this.PageCount)
+        {
+            // pages array doesn't match the actual number of images we're seeing
+            // in the archive, so discard the data
+            meta.Pages = [];
+        }
+        else
+        {
+            // validate keys
+            for (int i = 0; i < meta.Pages.Length; i++)
+            {
+                if (string.IsNullOrEmpty(meta.Pages[i].Key))
+                    meta.Pages[i].Key = PageList[i];
+            }
+        }
 
         if (meta.Pages.Length == 0)
             meta.Pages = GenerateDefaultPages();
@@ -231,13 +261,7 @@ public class ComicArchive : IDisposable
         if (meta == null)
             meta = new GenericMetadata();
 
-        // validate page nb
-        if (meta.Pages.Count() != this.PageCount)
-        {
-            // pages array doesn't match the actual number of images we're seeing
-            // in the archive, so discard the data
-            meta.Pages = [];
-        }
+        
         return meta;
     }
 
@@ -252,13 +276,7 @@ public class ComicArchive : IDisposable
         if (meta == null)
             meta = new GenericMetadata();
 
-        // validate page nb
-        if (meta.Pages.Count() != this.PageCount)
-        {
-            // pages array doesn't match the actual number of images we're seeing
-            // in the archive, so discard the data
-            meta.Pages = [];
-        }
+       
         return meta;
     }
 
@@ -272,19 +290,27 @@ public class ComicArchive : IDisposable
         if (meta == null)
             meta = new GenericMetadata();
 
-        // validate page nb
-        if (meta.Pages.Count() != this.PageCount)
-        {
-            // pages array doesn't match the actual number of images we're seeing
-            // in the archive, so discard the data
-            meta.Pages = [];
-        }
+       
         return meta;
     }
 
 
 
     #endregion
+
+    #region Pages
+
+    public Stream? GetPageAsStream(string pageName)
+    {
+        if (this.PageList.Contains(pageName))
+        {
+            return this.Archiver.ReadArchiveFileAsStream(pageName);
+        }
+        return null;
+    }
+
+    #endregion
+
     public void Dispose()
     {
         Archiver?.Dispose();
