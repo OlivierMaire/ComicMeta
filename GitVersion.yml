@@ -1,7 +1,8 @@
 assembly-versioning-scheme: MajorMinorPatch
 assembly-file-versioning-scheme: MajorMinorPatch
 assembly-informational-format: '{InformationalVersion}'
-mode: ContinuousDelivery
+# mode: ContinuousDelivery
+mode: Mainline
 increment: Inherit
 continuous-delivery-fallback-tag: ci
 tag-prefix: '[vV]'

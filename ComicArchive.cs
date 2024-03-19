@@ -86,7 +86,7 @@ public class ComicArchive : IDisposable
             MetaStyle = MetadataStyle.COMET;
 
         if (MetaStyle == null)
-            throw new Exception("Unknown Metadata format.");
+            MetaStyle = MetadataStyle.Unknown;
 
 
     }
@@ -115,7 +115,7 @@ public class ComicArchive : IDisposable
     public List<string> GetPageList()
     {
         return FileList.Where(f => VALID_IMAGE_EXT.Contains(Path.GetExtension(f).ToLower()))
-            .Where(f => !f.StartsWith('.')).ToList();
+            .Where(f => !f.StartsWith('.')).OrderBy(f => f).ToList();
     }
 
 
@@ -317,6 +317,7 @@ public class ComicArchive : IDisposable
     }
     public enum MetadataStyle
     {
+        Unknown = -1,
         CBI = 0, //ComicBookLover
         CIX = 1, // ComicRack
         COMET = 2 // CoMet
