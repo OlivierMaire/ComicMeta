@@ -115,7 +115,7 @@ public class ComicArchive : IDisposable
     public List<string> GetPageList()
     {
         return FileList.Where(f => VALID_IMAGE_EXT.Contains(Path.GetExtension(f).ToLower()))
-            .Where(f => !f.StartsWith('.')).OrderBy(f => f).ToList();
+            .Where(f => !Path.GetFileName(f).StartsWith('.')).OrderBy(f => f).ToList();
     }
 
 
