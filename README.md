@@ -1,7 +1,7 @@
 # ComicMeta
 .Net Comic files Metadata Library
 
-Can handle Zip Archives (CBZ), Rar Archives (CBR), Pdf 
+Can handle Zip Archives (CBZ), Rar Archives (CBR), 7-Zip Archives (CB7), Tar Archives (CBT), Pdf 
 Supports the following Metadata formats: CIX (ComicInfo.xml), CBI (ComicBookInfo), CoMet
 Can only Read metadata, no write support.
 
