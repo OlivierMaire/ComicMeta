@@ -136,8 +136,45 @@ public static class XmlExtensions
 {
     public static int? TryParseToInt(this string? str)
     {
-        if (decimal.TryParse(str, System.Globalization.CultureInfo.InvariantCulture , out var myInt))
+        if (decimal.TryParse(str, System.Globalization.CultureInfo.InvariantCulture, out var myInt))
             return (int)myInt;
         return null;
+    }
+
+    // tolerant boolean parser
+    public static bool? TryParseToBool(this string? str)
+    {
+        if (string.IsNullOrWhiteSpace(str)) return null;
+
+        var s = str.Trim();
+
+        // standard true/false parser (case-insensitive)
+        if (bool.TryParse(s, out var b)) return b;
+
+        // common alternative encodings
+        if (string.Equals(s, "1", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(s, "yes", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(s, "y", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(s, "on", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(s, "true", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(s, "True", StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        if (string.Equals(s, "0", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(s, "no", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(s, "n", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(s, "off", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(s, "false", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(s, "False", StringComparison.OrdinalIgnoreCase))
+            return false;
+
+        return null; // unknown form
+    }
+
+    // Optional: non-nullable version with a default
+    public static bool TryParseToBool(this string? str, bool defaultValue)
+    {
+        var v = TryParseToBool(str);
+        return v ?? defaultValue;
     }
 }
