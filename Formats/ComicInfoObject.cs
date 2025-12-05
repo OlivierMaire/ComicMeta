@@ -1,100 +1,103 @@
-namespace ComicMeta.Formats {
-    
-    
+namespace ComicMeta.Formats
+{
+
+
     /// <remarks/>
-    public partial class ComicInfo {
-        
+    public partial class ComicInfo
+    {
+
         private string titleField;
-        
+
         private string seriesField;
-        
+
         private string numberField;
-        
+
         private int countField;
-        
+
         private int volumeField;
-        
+
         private string alternateSeriesField;
-        
+
         private string alternateNumberField;
-        
+
         private int alternateCountField;
-        
+
         private string summaryField;
-        
+
         private string notesField;
-        
+
         private int yearField;
-        
+
         private int monthField;
-        
+
         private int dayField;
-        
+
         private string writerField;
-        
+
         private string pencillerField;
-        
+
         private string inkerField;
-        
+
         private string coloristField;
-        
+
         private string lettererField;
-        
+
         private string coverArtistField;
-        
+
         private string editorField;
-        
+
         private string translatorField;
-        
+
         private string publisherField;
-        
+
         private string imprintField;
-        
+
         private string genreField;
-        
+
         private string tagsField;
-        
+
         private string webField;
-        
+
         private int pageCountField;
-        
+
         private string languageISOField;
-        
+
         private string formatField;
-        
+
         private YesNo blackAndWhiteField;
-        
+
         private Manga mangaField;
-        
+
         private string charactersField;
-        
+
         private string teamsField;
-        
+
         private string locationsField;
-        
+
         private string scanInformationField;
-        
+
         private string storyArcField;
-        
+
         private string storyArcNumberField;
-        
+
         private string seriesGroupField;
-        
+
         private AgeRating ageRatingField;
-        
+
         private ComicPageInfo[] pagesField;
-        
+
         private decimal communityRatingField;
-        
+
         private bool communityRatingFieldSpecified;
-        
+
         private string mainCharacterOrTeamField;
-        
+
         private string reviewField;
-        
+
         private string gTINField;
-        
-        public ComicInfo() {
+
+        public ComicInfo()
+        {
             this.titleField = "";
             this.seriesField = "";
             this.numberField = "";
@@ -139,609 +142,749 @@ namespace ComicMeta.Formats {
             this.gTINField = "";
             this.pagesField = [];
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Title {
-            get {
+        public string Title
+        {
+            get
+            {
                 return this.titleField;
             }
-            set {
+            set
+            {
                 this.titleField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Series {
-            get {
+        public string Series
+        {
+            get
+            {
                 return this.seriesField;
             }
-            set {
+            set
+            {
                 this.seriesField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Number {
-            get {
+        public string Number
+        {
+            get
+            {
                 return this.numberField;
             }
-            set {
+            set
+            {
                 this.numberField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute(-1)]
-        public int Count {
-            get {
+        public int Count
+        {
+            get
+            {
                 return this.countField;
             }
-            set {
+            set
+            {
                 this.countField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute(-1)]
-        public int Volume {
-            get {
+        public int Volume
+        {
+            get
+            {
                 return this.volumeField;
             }
-            set {
+            set
+            {
                 this.volumeField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string AlternateSeries {
-            get {
+        public string AlternateSeries
+        {
+            get
+            {
                 return this.alternateSeriesField;
             }
-            set {
+            set
+            {
                 this.alternateSeriesField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string AlternateNumber {
-            get {
+        public string AlternateNumber
+        {
+            get
+            {
                 return this.alternateNumberField;
             }
-            set {
+            set
+            {
                 this.alternateNumberField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute(-1)]
-        public int AlternateCount {
-            get {
+        public int AlternateCount
+        {
+            get
+            {
                 return this.alternateCountField;
             }
-            set {
+            set
+            {
                 this.alternateCountField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Summary {
-            get {
+        public string Summary
+        {
+            get
+            {
                 return this.summaryField;
             }
-            set {
+            set
+            {
                 this.summaryField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Notes {
-            get {
+        public string Notes
+        {
+            get
+            {
                 return this.notesField;
             }
-            set {
+            set
+            {
                 this.notesField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute(-1)]
-        public int Year {
-            get {
+        public int Year
+        {
+            get
+            {
                 return this.yearField;
             }
-            set {
+            set
+            {
                 this.yearField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute(-1)]
-        public int Month {
-            get {
+        public int Month
+        {
+            get
+            {
                 return this.monthField;
             }
-            set {
+            set
+            {
                 this.monthField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute(-1)]
-        public int Day {
-            get {
+        public int Day
+        {
+            get
+            {
                 return this.dayField;
             }
-            set {
+            set
+            {
                 this.dayField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Writer {
-            get {
+        public string Writer
+        {
+            get
+            {
                 return this.writerField;
             }
-            set {
+            set
+            {
                 this.writerField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Penciller {
-            get {
+        public string Penciller
+        {
+            get
+            {
                 return this.pencillerField;
             }
-            set {
+            set
+            {
                 this.pencillerField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Inker {
-            get {
+        public string Inker
+        {
+            get
+            {
                 return this.inkerField;
             }
-            set {
+            set
+            {
                 this.inkerField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Colorist {
-            get {
+        public string Colorist
+        {
+            get
+            {
                 return this.coloristField;
             }
-            set {
+            set
+            {
                 this.coloristField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Letterer {
-            get {
+        public string Letterer
+        {
+            get
+            {
                 return this.lettererField;
             }
-            set {
+            set
+            {
                 this.lettererField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string CoverArtist {
-            get {
+        public string CoverArtist
+        {
+            get
+            {
                 return this.coverArtistField;
             }
-            set {
+            set
+            {
                 this.coverArtistField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Editor {
-            get {
+        public string Editor
+        {
+            get
+            {
                 return this.editorField;
             }
-            set {
+            set
+            {
                 this.editorField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Translator {
-            get {
+        public string Translator
+        {
+            get
+            {
                 return this.translatorField;
             }
-            set {
+            set
+            {
                 this.translatorField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Publisher {
-            get {
+        public string Publisher
+        {
+            get
+            {
                 return this.publisherField;
             }
-            set {
+            set
+            {
                 this.publisherField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Imprint {
-            get {
+        public string Imprint
+        {
+            get
+            {
                 return this.imprintField;
             }
-            set {
+            set
+            {
                 this.imprintField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Genre {
-            get {
+        public string Genre
+        {
+            get
+            {
                 return this.genreField;
             }
-            set {
+            set
+            {
                 this.genreField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Tags {
-            get {
+        public string Tags
+        {
+            get
+            {
                 return this.tagsField;
             }
-            set {
+            set
+            {
                 this.tagsField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Web {
-            get {
+        public string Web
+        {
+            get
+            {
                 return this.webField;
             }
-            set {
+            set
+            {
                 this.webField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute(0)]
-        public int PageCount {
-            get {
+        public int PageCount
+        {
+            get
+            {
                 return this.pageCountField;
             }
-            set {
+            set
+            {
                 this.pageCountField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string LanguageISO {
-            get {
+        public string LanguageISO
+        {
+            get
+            {
                 return this.languageISOField;
             }
-            set {
+            set
+            {
                 this.languageISOField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Format {
-            get {
+        public string Format
+        {
+            get
+            {
                 return this.formatField;
             }
-            set {
+            set
+            {
                 this.formatField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute(YesNo.Unknown)]
-        public YesNo BlackAndWhite {
-            get {
+        public YesNo BlackAndWhite
+        {
+            get
+            {
                 return this.blackAndWhiteField;
             }
-            set {
+            set
+            {
                 this.blackAndWhiteField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute(Manga.Unknown)]
-        public Manga Manga {
-            get {
+        public Manga Manga
+        {
+            get
+            {
                 return this.mangaField;
             }
-            set {
+            set
+            {
                 this.mangaField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Characters {
-            get {
+        public string Characters
+        {
+            get
+            {
                 return this.charactersField;
             }
-            set {
+            set
+            {
                 this.charactersField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Teams {
-            get {
+        public string Teams
+        {
+            get
+            {
                 return this.teamsField;
             }
-            set {
+            set
+            {
                 this.teamsField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Locations {
-            get {
+        public string Locations
+        {
+            get
+            {
                 return this.locationsField;
             }
-            set {
+            set
+            {
                 this.locationsField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string ScanInformation {
-            get {
+        public string ScanInformation
+        {
+            get
+            {
                 return this.scanInformationField;
             }
-            set {
+            set
+            {
                 this.scanInformationField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string StoryArc {
-            get {
+        public string StoryArc
+        {
+            get
+            {
                 return this.storyArcField;
             }
-            set {
+            set
+            {
                 this.storyArcField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string StoryArcNumber {
-            get {
+        public string StoryArcNumber
+        {
+            get
+            {
                 return this.storyArcNumberField;
             }
-            set {
+            set
+            {
                 this.storyArcNumberField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string SeriesGroup {
-            get {
+        public string SeriesGroup
+        {
+            get
+            {
                 return this.seriesGroupField;
             }
-            set {
+            set
+            {
                 this.seriesGroupField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute(AgeRating.Unknown)]
-        public AgeRating AgeRating {
-            get {
+        public AgeRating AgeRating
+        {
+            get
+            {
                 return this.ageRatingField;
             }
-            set {
+            set
+            {
                 this.ageRatingField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("Page")]
-        public ComicPageInfo[] Pages {
-            get {
+        public ComicPageInfo[] Pages
+        {
+            get
+            {
                 return this.pagesField;
             }
-            set {
+            set
+            {
                 this.pagesField = value;
             }
         }
-        
+
         /// <remarks/>
-        public decimal CommunityRating {
-            get {
+        public decimal CommunityRating
+        {
+            get
+            {
                 return this.communityRatingField;
             }
-            set {
+            set
+            {
                 this.communityRatingField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool CommunityRatingSpecified {
-            get {
+        public bool CommunityRatingSpecified
+        {
+            get
+            {
                 return this.communityRatingFieldSpecified;
             }
-            set {
+            set
+            {
                 this.communityRatingFieldSpecified = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string MainCharacterOrTeam {
-            get {
+        public string MainCharacterOrTeam
+        {
+            get
+            {
                 return this.mainCharacterOrTeamField;
             }
-            set {
+            set
+            {
                 this.mainCharacterOrTeamField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Review {
-            get {
+        public string Review
+        {
+            get
+            {
                 return this.reviewField;
             }
-            set {
+            set
+            {
                 this.reviewField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string GTIN {
-            get {
+        public string GTIN
+        {
+            get
+            {
                 return this.gTINField;
             }
-            set {
+            set
+            {
                 this.gTINField = value;
             }
         }
     }
-    
+
     /// <remarks/>
-    public enum YesNo {
-        
+    public enum YesNo
+    {
+
         /// <remarks/>
         Unknown,
-        
+
         /// <remarks/>
         No,
-        
+
         /// <remarks/>
         Yes,
     }
-    
+
     /// <remarks/>
-    public enum Manga {
-        
+    public enum Manga
+    {
+
         /// <remarks/>
         Unknown,
-        
+
         /// <remarks/>
         No,
-        
+
         /// <remarks/>
         Yes,
-        
+
         /// <remarks/>
         YesAndRightToLeft,
     }
-    
+
     /// <remarks/>
-    public enum AgeRating {
-        
+    public enum AgeRating
+    {
+
         /// <remarks/>
         Unknown,
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("Adults Only 18+")]
         AdultsOnly18,
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("Early Childhood")]
         EarlyChildhood,
-        
+
         /// <remarks/>
         Everyone,
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("Everyone 10+")]
         Everyone10,
-        
+
         /// <remarks/>
         G,
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("Kids to Adults")]
         KidstoAdults,
-        
+
         /// <remarks/>
         M,
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("MA15+")]
         MA15,
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("Mature 17+")]
         Mature17,
-        
+
         /// <remarks/>
         PG,
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("R18+")]
         R18,
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("Rating Pending")]
         RatingPending,
-        
+
         /// <remarks/>
         Teen,
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("X18+")]
         X18,
     }
-    
+
     /// <remarks/>
-    public partial class ComicPageInfo {
-        
+    public partial class ComicPageInfo
+    {
+
         private int imageField;
-        
+
         private ComicPageType typeField;
-        
+
         private bool doublePageField;
-        
+
         private long imageSizeField;
-        
+
         private string keyField;
-        
+
         private string bookmarkField;
-        
+
         private int imageWidthField;
-        
+
         private int imageHeightField;
-        
-        public ComicPageInfo() {
+
+        public ComicPageInfo()
+        {
             this.typeField = ComicPageType.Story;
             this.doublePageField = false;
             this.imageSizeField = ((long)(0));
@@ -750,152 +893,199 @@ namespace ComicMeta.Formats {
             this.imageWidthField = -1;
             this.imageHeightField = -1;
         }
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int Image {
-            get {
+        public int Image
+        {
+            get
+            {
                 return this.imageField;
             }
-            set {
+            set
+            {
                 this.imageField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         [System.ComponentModel.DefaultValueAttribute(ComicPageType.Story)]
-        public ComicPageType Type {
-            get {
+        public ComicPageType Type
+        {
+            get
+            {
                 return this.typeField;
             }
-            set {
+            set
+            {
                 this.typeField = value;
             }
         }
-        
+
         /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute("DoublePage")]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string DoublePageString
+        {
+            get
+            {
+                return this.doublePageStringField;
+            }
+            set
+            {
+                this.doublePageStringField = value;
+                // Auto-convert to bool
+                this.doublePageField = DoublePageString.TryParseToBool(false);
+            }
+        }
+
+        private string doublePageStringField = "";
         [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
         [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool DoublePage {
-            get {
+        public bool DoublePage
+        {
+            get
+            {
                 return this.doublePageField;
             }
-            set {
+            set
+            {
                 this.doublePageField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         [System.ComponentModel.DefaultValueAttribute(typeof(long), "0")]
-        public long ImageSize {
-            get {
+        public long ImageSize
+        {
+            get
+            {
                 return this.imageSizeField;
             }
-            set {
+            set
+            {
                 this.imageSizeField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Key {
-            get {
+        public string Key
+        {
+            get
+            {
                 return this.keyField;
             }
-            set {
+            set
+            {
                 this.keyField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         [System.ComponentModel.DefaultValueAttribute("")]
-        public string Bookmark {
-            get {
+        public string Bookmark
+        {
+            get
+            {
                 return this.bookmarkField;
             }
-            set {
+            set
+            {
                 this.bookmarkField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         [System.ComponentModel.DefaultValueAttribute(-1)]
-        public int ImageWidth {
-            get {
+        public int ImageWidth
+        {
+            get
+            {
                 return this.imageWidthField;
             }
-            set {
+            set
+            {
                 this.imageWidthField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         [System.ComponentModel.DefaultValueAttribute(-1)]
-        public int ImageHeight {
-            get {
+        public int ImageHeight
+        {
+            get
+            {
                 return this.imageHeightField;
             }
-            set {
+            set
+            {
                 this.imageHeightField = value;
             }
         }
     }
-    
+
     /// <remarks/>
-    public enum ComicPageType {
-        
+    public enum ComicPageType
+    {
+
         /// <remarks/>
         FrontCover = 1,
-        
+
         /// <remarks/>
         InnerCover = 2,
-        
+
         /// <remarks/>
         Roundup = 4,
-        
+
         /// <remarks/>
         Story = 8,
-        
+
         /// <remarks/>
         Advertisement = 16,
-        
+
         /// <remarks/>
         Editorial = 32,
-        
+
         /// <remarks/>
         Letters = 64,
-        
+
         /// <remarks/>
         Preview = 128,
-        
+
         /// <remarks/>
         BackCover = 256,
-        
+
         /// <remarks/>
         Other = 512,
-        
+
         /// <remarks/>
         Deleted = 1024,
     }
-    
+
     /// <remarks/>
-    public partial class ArrayOfComicPageInfo {
-        
+    public partial class ArrayOfComicPageInfo
+    {
+
         private ComicPageInfo[] pageField = [];
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("Page", IsNullable=true)]
-        public ComicPageInfo[] Page {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute("Page", IsNullable = true)]
+        public ComicPageInfo[] Page
+        {
+            get
+            {
                 return this.pageField;
             }
-            set {
+            set
+            {
                 this.pageField = value;
             }
         }
