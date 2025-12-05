@@ -12,7 +12,7 @@ public class RarArchiver(string filePath) : IArchiver
     public List<string> GetArchiveFilenameList()
     {
         archive ??= RarArchive.Open(FilePath);
-        return archive.Entries.Select(e => e.Key).ToList();
+        return archive.Entries.Select(e => e.Key ?? string.Empty).ToList();
     }
     
     public string GetArchiveComment()
