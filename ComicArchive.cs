@@ -71,6 +71,20 @@ public class ComicArchive : IDisposable
                 Archiver = new PdfArchiver(filePath);
             }
         }
+        else if (FileExt == ".cb7")
+        {
+            if (SevenZipArchiver.IsValidArchive(filePath))
+            {
+                Archiver = new SevenZipArchiver(filePath);
+            }
+        }
+        else if (FileExt == ".cbt")
+        {
+            if (TarArchiver.IsValidArchive(filePath))
+            {
+                Archiver = new TarArchiver(filePath);
+            }
+        }
 
         if (Archiver == null)
         {
@@ -98,7 +112,9 @@ public class ComicArchive : IDisposable
     {
         if (ZipArchiver.IsValidArchive(FilePath) ||
             RarArchiver.IsValidArchive(FilePath) ||
-            PdfArchiver.IsValidArchive(FilePath)
+            PdfArchiver.IsValidArchive(FilePath) ||
+            SevenZipArchiver.IsValidArchive(FilePath) ||
+            TarArchiver.IsValidArchive(FilePath)
         )
         {
             if (PageCount > 0)
