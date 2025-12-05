@@ -12,7 +12,7 @@ public class ZipArchiver(string filePath) : IArchiver
     public List<string> GetArchiveFilenameList()
     {
         archive ??= ZipFile.OpenRead(FilePath);
-        return archive.Entries.Select(e => e.Name).ToList();
+        return archive.Entries.Select(e => e.FullName).ToList();
     }
 
     public string GetArchiveComment()
